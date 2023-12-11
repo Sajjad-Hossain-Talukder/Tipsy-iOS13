@@ -24,7 +24,6 @@ struct TipsBrain {
     }
     
     mutating func calculateTips(_ inpTips:String, _ person :String  ){
-        
         let tp:Float? = Float(inpTips)
         let per:Float? = Float(person)
         
@@ -34,12 +33,14 @@ struct TipsBrain {
         } else {
             tips = Tips(tipsGained: "Invalid", pct: "#" , people: "#" )
         }
-        
-        
-        
-        
-        tips?.tipsGained = inpTips
-        tips?.people = person
+    }
+    
+    func getPeoplePercentageInfo()-> String {
+        return "Split between " + (tips?.people ?? "NF") + " people, with " + (tips?.pct ?? "NF") + " Tip."
+    }
+    
+    func getResult()->String {
+        return tips?.tipsGained ?? "NF"
     }
     
     

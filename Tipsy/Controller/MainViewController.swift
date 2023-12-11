@@ -46,8 +46,17 @@ class MainViewController: UIViewController {
         
         tipsBrain.calculateTips(textInput.text ?? "NF", splitLabel.text ?? "NF" )
         
+        self.performSegue(withIdentifier: "goToResult", sender: self )
+        
     }
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToResult" {
+            var secondVC = segue.destination as! ResultViewController
+            secondVC.res = tipsBrain.getResult()
+            secondVC.perPct = tipsBrain.getPeoplePercentageInfo()
+            
+        }
+    }
     
     func allInit(){
         zeroPct.tag = 0
