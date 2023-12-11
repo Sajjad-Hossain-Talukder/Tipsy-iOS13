@@ -9,6 +9,8 @@
 import UIKit
 
 class MainViewController: UIViewController {
+    
+    var tipsBrain = TipsBrain()
 
     @IBOutlet weak var tenPct: UIButton!
     
@@ -16,34 +18,42 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var twentyPct: UIButton!
     
+    @IBOutlet weak var incDecPeople: UIStepper!
+    
+    @IBOutlet weak var splitLabel: UILabel!
+    
+    @IBOutlet weak var textInput: UITextField!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        zeroPct.tag = 0
-        tenPct.tag = 1
-        twentyPct.tag = 2
-
+        allInit()
     }
     
     @IBAction func pctPressed(_ sender: UIButton) {
-        if sender.tag == 0 {
-            zeroPct.isSelected = true
-            tenPct.isSelected = false
-            twentyPct.isSelected = false
-        } else if  sender.tag == 1 {
-            zeroPct.isSelected = false
-            tenPct.isSelected = true
-            twentyPct.isSelected = false
-        } else {
-            zeroPct.isSelected = false
-            tenPct.isSelected = false
-            twentyPct.isSelected = true
-        }
+        let selected = tipsBrain.getSelected(sender.tag)
+        zeroPct.isSelected = selected[0]
+        tenPct.isSelected = selected[1]
+        twentyPct.isSelected = selected[2]
+    }
+    
+    
+    @IBAction func incDecPeopleAction(_ sender: UIStepper) {
+        splitLabel.text = String(format:"%.0f",incDecPeople.value)
     }
     
     @IBAction func calculateAction(_ sender: UIButton) {
         
+        tipsBrain.calculateTips(textInput.text ?? "NF", splitLabel.text ?? "NF" )
         
-        
+    }
+    
+    
+    func allInit(){
+        zeroPct.tag = 0
+        tenPct.tag = 1
+        twentyPct.tag = 2
+        splitLabel.text = String(format:"%.0f",incDecPeople.value)
     }
     
 }
